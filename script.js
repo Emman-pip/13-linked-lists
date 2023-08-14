@@ -16,15 +16,20 @@ const listFactory = () => {
   const obj = {};
   const append = (value) => {
     if (Object.values(obj)[0] == undefined) {
+      console.log("appended head");
       obj.data = value;
-    } else {
-      const lastNode = toEnd(obj.data);
-      // console.log(Object.keys(lastNode), Object.values(lastNode));
-      if (lastNode.next === null) {
-        lastNode.next = value;
-        return;
+    } else if (!Object.values(obj).length == 0) {
+      console.log(`append ${value}`);
+      console.log("obj", obj);
+      let lastNode = obj.data;
+      while (true) {
+        if (lastNode.next == null) {
+          lastNode.next = value;
+          return false;
+        } else {
+          lastNode = lastNode.next;
+        }
       }
-      console.log("error here");
     }
   };
   return { obj, append };
@@ -38,9 +43,10 @@ const LinkedL = listFactory();
 // // lol.list.next = nodeFactory("tail");
 LinkedL.append(nodeFactory("first"));
 LinkedL.append(nodeFactory("second"));
-// LinkedL.append(nodeFactory("third"));
-
-console.log(LinkedL.obj);
+LinkedL.append(nodeFactory("third"));
+LinkedL.append(nodeFactory("fourth"));
+LinkedL.append(nodeFactory("fifth"));
+console.log("final", LinkedL.obj);
 // console.log(LinkedL.obj.data.next);
 // LinkedL.append(nodeFactory("third"));
 // LinkedL.append(nodeFactory("fourth"));
