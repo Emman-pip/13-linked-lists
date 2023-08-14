@@ -56,7 +56,22 @@ const listFactory = () => {
     return counter;
   };
 
-  return { obj, append, prepend, size };
+  const head = () => {
+    return obj.data.value;
+  };
+
+  const tail = () => {
+    let lastNode = obj.data;
+    while (lastNode.next) {
+      if (lastNode.next === null) {
+        break;
+      }
+      lastNode = lastNode.next;
+    }
+    return lastNode.value;
+  };
+
+  return { obj, append, prepend, size, head, tail };
 };
 
 const nodeFactory = (value = null, next = null) => {
@@ -71,7 +86,9 @@ LinkedL.prepend(nodeFactory("prepended1st"));
 LinkedL.prepend(nodeFactory("prepended2nd"));
 LinkedL.append(nodeFactory("third"));
 console.log("final", LinkedL.obj);
-console.log(LinkedL.size());
+console.log("size", LinkedL.size());
+console.log("head", LinkedL.head());
+console.log("tail", LinkedL.tail());
 // console.log(LinkedL.obj.data.next);
 // LinkedL.append(nodeFactory("third"));
 // LinkedL.append(nodeFactory("fourth"));
