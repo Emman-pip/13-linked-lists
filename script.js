@@ -16,23 +16,47 @@ const listFactory = () => {
   const obj = {};
   const append = (value) => {
     if (Object.values(obj)[0] == undefined) {
-      console.log("appended head");
       obj.data = value;
-    } else if (!Object.values(obj).length == 0) {
-      console.log(`append ${value}`);
-      console.log("obj", obj);
-      let lastNode = obj.data;
-      while (true) {
-        if (lastNode.next == null) {
-          lastNode.next = value;
-          return false;
-        } else {
-          lastNode = lastNode.next;
-        }
+      return;
+    }
+    // } else if (!Object.values(obj).length == 0) {
+    let lastNode = obj.data;
+    while (true) {
+      if (lastNode.next == null) {
+        lastNode.next = value;
+        return false;
+      } else {
+        lastNode = lastNode.next;
       }
     }
+    // }
   };
-  return { obj, append };
+  const prepend = (value) => {
+    if (Object.values(obj)[0] == undefined) {
+      obj.data = value;
+      return;
+    }
+    value.next = obj.data;
+    obj.data = value;
+    return;
+  };
+
+  const size = () => {
+    let counter = 0;
+    let node = obj.data;
+    while (true) {
+      if (Boolean(node.next) == true) {
+        counter++;
+      } else {
+        counter++;
+        break;
+      }
+      node = node.next;
+    }
+    return counter;
+  };
+
+  return { obj, append, prepend, size };
 };
 
 const nodeFactory = (value = null, next = null) => {
@@ -43,10 +67,11 @@ const LinkedL = listFactory();
 // // lol.list.next = nodeFactory("tail");
 LinkedL.append(nodeFactory("first"));
 LinkedL.append(nodeFactory("second"));
+LinkedL.prepend(nodeFactory("prepended1st"));
+LinkedL.prepend(nodeFactory("prepended2nd"));
 LinkedL.append(nodeFactory("third"));
-LinkedL.append(nodeFactory("fourth"));
-LinkedL.append(nodeFactory("fifth"));
 console.log("final", LinkedL.obj);
+console.log(LinkedL.size());
 // console.log(LinkedL.obj.data.next);
 // LinkedL.append(nodeFactory("third"));
 // LinkedL.append(nodeFactory("fourth"));
