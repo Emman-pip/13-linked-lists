@@ -71,7 +71,31 @@ const listFactory = () => {
     }
   };
 
-  return { obj, append, prepend, size, head, tail, at };
+  const pop = () => {
+    let nodeBefore = obj.data;
+    while (true) {
+      if (nodeBefore.next.next === null) {
+        nodeBefore.next = null;
+        break;
+      }
+      nodeBefore = nodeBefore.next;
+    }
+  };
+
+  const contains = (value) => {
+    let node = list.data;
+    while (true) {
+      if (node === null) {
+        return false;
+      }
+      if (node.value === value) {
+        return true;
+      }
+      node = node.next;
+    }
+  };
+
+  return { obj, append, prepend, size, head, tail, at, pop };
 };
 
 const nodeFactory = (value = null, next = null) => {
