@@ -83,7 +83,7 @@ const listFactory = () => {
   };
 
   const contains = (value) => {
-    let node = list.data;
+    let node = obj.data;
     while (true) {
       if (node === null) {
         return false;
@@ -95,7 +95,24 @@ const listFactory = () => {
     }
   };
 
-  return { obj, append, prepend, size, head, tail, at, pop };
+  const find = (value) => {
+    let index = 0;
+    let node = obj.data;
+    while (true) {
+      if (value === node.value) {
+        return index;
+      } else if (node.next === null) {
+        if (value === node.value) {
+          return index;
+        }
+        return null;
+      }
+      index++;
+      node = node.next;
+    }
+  };
+
+  return { obj, append, prepend, size, head, tail, at, pop, contains, find };
 };
 
 const nodeFactory = (value = null, next = null) => {
@@ -114,6 +131,7 @@ console.log("size", LinkedL.size());
 console.log("head", LinkedL.head());
 console.log("tail", LinkedL.tail());
 console.log(LinkedL.at(2));
+console.log(LinkedL.find("first"));
 // console.log(LinkedL.obj.data.next);
 // LinkedL.append(nodeFactory("third"));
 // LinkedL.append(nodeFactory("fourth"));
