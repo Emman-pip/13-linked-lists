@@ -1,17 +1,3 @@
-function toEnd(data) {
-  console.log("data", data);
-  if (data == undefined) {
-    console.log("undefined data");
-  } else if (data.next === null) {
-    console.log("data is null");
-    // console.log("data", data);
-    return data;
-  } else if (Boolean(data.next) === true) {
-    console.log("i read the next node");
-    toEnd(data.next);
-  }
-}
-
 const listFactory = () => {
   const obj = {};
   const append = (value) => {
@@ -71,7 +57,21 @@ const listFactory = () => {
     return lastNode.value;
   };
 
-  return { obj, append, prepend, size, head, tail };
+  const at = (index) => {
+    let node = obj.data;
+    let nodeNumber = 0;
+    while (true) {
+      if (nodeNumber === index) {
+        return node.value;
+      } else if (node === null) {
+        return "index > list.length";
+      }
+      node = node.next;
+      nodeNumber++;
+    }
+  };
+
+  return { obj, append, prepend, size, head, tail, at };
 };
 
 const nodeFactory = (value = null, next = null) => {
@@ -89,6 +89,7 @@ console.log("final", LinkedL.obj);
 console.log("size", LinkedL.size());
 console.log("head", LinkedL.head());
 console.log("tail", LinkedL.tail());
+console.log(LinkedL.at(2));
 // console.log(LinkedL.obj.data.next);
 // LinkedL.append(nodeFactory("third"));
 // LinkedL.append(nodeFactory("fourth"));
