@@ -130,6 +130,26 @@ const listFactory = () => {
     return str;
   };
 
+  //TODO: insertAt(value, index), removeAt(index)
+
+  const insertAt = (value, index) => {
+    //iterate through the list
+    let node = obj.data;
+    let nodeNumber = 0;
+    while (true) {
+      if (nodeNumber === index - 1) {
+        value.next = JSON.parse(JSON.stringify(node.next));
+        node.next = JSON.parse(JSON.stringify(value));
+        return "value appended";
+      } else if (node === null) {
+        console.error("ERROR:  index > list.length");
+        return;
+      }
+      node = node.next;
+      nodeNumber++;
+    }
+  };
+
   return {
     obj,
     append,
@@ -142,6 +162,7 @@ const listFactory = () => {
     contains,
     find,
     toString,
+    insertAt,
   };
 };
 
@@ -151,18 +172,30 @@ const nodeFactory = (value = null, next = null) => {
 
 const LinkedL = listFactory();
 // // lol.list.next = nodeFactory("tail");
+
 LinkedL.append(nodeFactory("first"));
 LinkedL.append(nodeFactory("second"));
 LinkedL.prepend(nodeFactory("prepended1st"));
 LinkedL.prepend(nodeFactory("prepended2nd"));
 LinkedL.append(nodeFactory("third"));
-console.log("final", LinkedL.obj);
+
+// console.log("final", LinkedL.obj);
 console.log("size", LinkedL.size());
-console.log("head", LinkedL.head());
-console.log("tail", LinkedL.tail());
-console.log(LinkedL.at(2));
-console.log(LinkedL.find("first"));
-console.log(LinkedL.toString());
+// console.log("head", LinkedL.head());
+// console.log("tail", LinkedL.tail());
+// console.log(LinkedL.at(2));
+// console.log(LinkedL.find("first"));
+// console.log(LinkedL.toString());
 // console.log(LinkedL.obj.data.next);
 // LinkedL.append(nodeFactory("third"));
 // LinkedL.append(nodeFactory("fourth"));
+console.log("insertAt", LinkedL.insertAt(nodeFactory("jaojn"), 2));
+console.log("size", LinkedL.size());
+
+console.log(LinkedL);
+// const sample = { data: { data: { hehe: "haha" } } };
+// const lol = sample.data;
+// lol.value = "lala";
+
+// console.log(lol);
+// console.log(sample);
