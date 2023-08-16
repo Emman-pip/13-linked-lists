@@ -150,6 +150,28 @@ const listFactory = () => {
     }
   };
 
+  const removeAt = (index) => {
+    let node = obj.data;
+    let nodeNumber = 0;
+    while (true) {
+      if (nodeNumber === index - 1 || index === 0) {
+        if (node.next === null) {
+          node.next = null;
+          return `Removed value at ${index}`;
+        } else if (index === 0) {
+          obj.data = node.next;
+        }
+        node.next = node.next.next;
+        return `Removed value at ${index}`;
+      } else if (node === null) {
+        console.error("ERROR:  index not found");
+        return;
+      }
+      node = node.next;
+      nodeNumber++;
+    }
+  };
+
   return {
     obj,
     append,
@@ -163,6 +185,7 @@ const listFactory = () => {
     find,
     toString,
     insertAt,
+    removeAt,
   };
 };
 
@@ -180,7 +203,7 @@ LinkedL.prepend(nodeFactory("prepended2nd"));
 LinkedL.append(nodeFactory("third"));
 
 // console.log("final", LinkedL.obj);
-console.log("size", LinkedL.size());
+// console.log("size", LinkedL.size());
 // console.log("head", LinkedL.head());
 // console.log("tail", LinkedL.tail());
 // console.log(LinkedL.at(2));
@@ -189,13 +212,16 @@ console.log("size", LinkedL.size());
 // console.log(LinkedL.obj.data.next);
 // LinkedL.append(nodeFactory("third"));
 // LinkedL.append(nodeFactory("fourth"));
-console.log("insertAt", LinkedL.insertAt(nodeFactory("jaojn"), 2));
+// console.log("insertAt", LinkedL.insertAt(nodeFactory("jaojn"), 2));
+// console.log("size", LinkedL.size());
+// console.log(LinkedL.obj);
+// console.log("size", LinkedL.size());
+
 console.log("size", LinkedL.size());
+console.log(LinkedL.obj);
 
-console.log(LinkedL);
-// const sample = { data: { data: { hehe: "haha" } } };
-// const lol = sample.data;
-// lol.value = "lala";
-
-// console.log(lol);
-// console.log(sample);
+document.addEventListener("click", () => {
+  console.log(LinkedL.removeAt(1));
+  console.log("size", LinkedL.size());
+  console.log(LinkedL.obj);
+});
